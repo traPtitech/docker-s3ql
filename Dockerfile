@@ -1,4 +1,4 @@
-FROM python:3.13-alpine AS build
+FROM python:3.12-alpine AS build
 
 ARG S3QL_VERSION=5.2.3
 
@@ -16,7 +16,7 @@ WORKDIR /tmp/$FILE
 RUN python3 setup.py build_ext --inplace \
   && python3 setup.py install --user
 
-FROM python:3.13-alpine
+FROM python:3.12-alpine
 RUN apk --no-cache add fuse3 psmisc
 COPY --from=build /root/.local/bin/ /usr/local/bin/
 COPY --from=build /root/.local/lib/ /usr/local/lib/
